@@ -15,9 +15,19 @@ flowchart TD
     Checkout[Checkout Page] -->|uses| Input
     Checkout -->|uses| Modal
 
-    classDef page fill:#f96,stroke:#333,stroke-width:4px
-    classDef component fill:#9cf,stroke:#333,stroke-width:2px
+    classDef page fill:#f96,stroke:#333,stroke-width:4px;
+    classDef component fill:#9cf,stroke:#333,stroke-width:2px;
 
-    class Home, Cart, Checkout page
-    class Header, Meals, MealItem, MealItemForm, HeaderCartButton, CartItem, Input, Modal component
+    class Home page;
+    class Cart page;
+    class Checkout page;
+    class Header component;
+    class Meals component;
+    class MealItem component;
+    class MealItemForm component;
+    class HeaderCartButton component;
+    class CartItem component;
+    class Input component;
+    class Modal component;
+
 ```
