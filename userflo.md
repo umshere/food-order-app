@@ -37,29 +37,65 @@ flowchart TD
 
 ```plantuml
 @startuml
+' --- Some optional styling to mimic "page" vs. "component" colors ---
+skinparam packageStyle rect
+skinparam componentStyle rect
+
+' Lighter orange for pages, lighter blue for components
+skinparam frame {
+    BackgroundColor #FFE5C2
+    BorderColor #333
+    BorderThickness 2
+}
+skinparam component {
+    BackgroundColor #CCE5FF
+    BorderColor #333
+    BorderThickness 1
+}
+
 package "Food Order App" {
+
+    ' --- HOME PAGE ---
     frame "Home Page" as Home {
-        component Header
-        component Meals
+        component "Header" as Header
+        component "Meals" as Meals
+        component "MealItem" as MealItem
+        component "MealItemForm" as MealItemForm
+        component "HeaderCartButton" as HeaderCartButton
     }
 
+    ' --- CART PAGE ---
     frame "Cart Page" as Cart {
-        component CartItem
+        component "CartItem" as CartItem
     }
 
+    ' --- CHECKOUT PAGE ---
     frame "Checkout Page" as Checkout {
-        component Input
-        component Modal
+        component "Input" as Input
+        component "Modal" as Modal
     }
 
-    Home --> Cart : HeaderCartButton triggers
+    ' --- RELATIONSHIPS ---
+    ' Show "contains" for the UI structure
+    Home --> Header : contains
+    Home --> Meals : contains
+    Meals --> MealItem : contains
+    MealItem --> MealItemForm : contains
+    Header --> HeaderCartButton : contains
+
+    ' Show "triggers" from the HeaderCartButton to Cart
+    HeaderCartButton --> Cart : triggers
+
+    ' Cart to Checkout
+    Cart --> CartItem : contains
     Cart --> Checkout : Proceed to Checkout
-    Meals --> MealItem : Contains
-    MealItem --> MealItemForm : Contains
-    Checkout --> Input : Uses
-    Checkout --> Modal : Uses
+
+    ' Checkout uses Input and Modal
+    Checkout --> Input : uses
+    Checkout --> Modal : uses
 }
 @enduml
+
 ```
 
 ## Standard Practices for UI Flow Documentation
